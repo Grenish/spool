@@ -16,11 +16,9 @@ import {
 } from "@/components/ui/input-group";
 import ViewPasswordButton from "@/components/view-password";
 import {
-  GoogleLogoIcon,
   PasswordIcon,
   SignInIcon,
   UserIcon,
-  XLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 
