@@ -15,7 +15,6 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { PasswordIcon } from "@phosphor-icons/react/dist/ssr";
-import Link from "next/link";
 
 export default function ResetPassword() {
   return (
