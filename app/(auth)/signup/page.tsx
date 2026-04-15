@@ -17,11 +17,9 @@ import {
 import ViewPasswordButton from "@/components/view-password";
 import {
   AtIcon,
-  GoogleLogoIcon,
   PasswordIcon,
   PersonIcon,
   UserIcon,
-  XLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 
