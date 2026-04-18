@@ -35,8 +35,8 @@ export default function Logo() {
             alt="logo"
             className="rounded-sm"
           />
-          <span className="truncate group-data-[collapsible=icon]:hidden">
-            <h2 className="text-xl font-bold">Spool.</h2>
+          <span className="truncate text-xl font-bold group-data-[collapsible=icon]:hidden">
+            Spool.
           </span>
         </Link>
 
