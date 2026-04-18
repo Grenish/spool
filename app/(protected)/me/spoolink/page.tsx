@@ -41,7 +41,7 @@ export default function Shorten() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   return (
-    <div className="min-h-dvh flex flex-col w-full items-center justify-center">
+    <div className="min-h-dvh flex flex-col w-full items-center justify-center px-4 sm:px-6 md:px-8">
       <div className="flex flex-col items-center justify-center w-full">
         <FieldSet className="w-full max-w-2xl">
           <FieldGroup>
@@ -58,7 +58,7 @@ export default function Shorten() {
                 </InputGroupAddon>
                 <InputGroupInput
                   placeholder="Enter your URL"
-                  className="w-xl"
+                  className="w-full"
                 />
               </InputGroup>
               <Field orientation={"horizontal"}>
@@ -161,13 +161,13 @@ export default function Shorten() {
             <FieldSet>
               <Field>
                 <FieldLabel>Your Recent Link</FieldLabel>
-                <div className="grid sm:grid-cols-3 grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {/*Empty State*/}
                   <Card>
                     <CardHeader>
                       <CardTitle>No Links Yet</CardTitle>
                       <CardDescription>
-                        You have not shorten any links yet. You&apos;r shorten
+                        You have not shortened any links yet. Your shortened
                         links will appear here.
                       </CardDescription>
                     </CardHeader>
