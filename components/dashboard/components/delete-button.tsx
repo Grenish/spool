@@ -12,12 +12,25 @@ import {
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "@phosphor-icons/react/dist/ssr";
 
-export default function DeleteButton() {
+type DeleteButtonProps = {
+  iconOnly?: boolean;
+  size?: React.ComponentProps<typeof Button>["size"];
+};
+
+export default function DeleteButton({
+  iconOnly = false,
+  size,
+}: DeleteButtonProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant={"destructive"}>
-          <TrashIcon /> Delete
+        <Button
+          variant={"destructive"}
+          size={size ?? (iconOnly ? "icon" : "default")}
+          aria-label="Delete"
+        >
+          <TrashIcon />
+          {!iconOnly ? "Delete" : null}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent size="sm">
