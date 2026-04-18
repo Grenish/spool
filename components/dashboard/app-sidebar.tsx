@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import {
@@ -20,7 +22,7 @@ import {
   LinkIcon,
   PaintBrushBroadIcon,
   PlugIcon,
-} from "@phosphor-icons/react/dist/ssr";
+} from "@phosphor-icons/react";
 
 export function AppSidebar() {
   return (
@@ -38,11 +40,15 @@ export function AppSidebar() {
                   <HouseIcon /> Home
                 </Link>
               </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="/me/spoolink">
                   <AxeIcon /> Shortener
                 </Link>
               </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="/me/spoolhub">
                   <LinkIcon />
@@ -54,9 +60,13 @@ export function AppSidebar() {
           <SidebarGroupLabel>Tools</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <PlugIcon /> Plugins
+              <SidebarMenuButton asChild>
+                <Link href={"/me/integrations"}>
+                  <PlugIcon /> Integrations
+                </Link>
               </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton>
                 <PaintBrushBroadIcon /> Themes
               </SidebarMenuButton>
@@ -64,11 +74,13 @@ export function AppSidebar() {
           </SidebarMenu>
           <SidebarGroupLabel>Extras</SidebarGroupLabel>
           <SidebarMenu>
-            <SidebarMenuButton asChild>
-              <Link href={"/me/support"}>
-                <HeartIcon weight="duotone" /> Support
-              </Link>
-            </SidebarMenuButton>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="/me/support">
+                  <HeartIcon weight="duotone" /> Support
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
