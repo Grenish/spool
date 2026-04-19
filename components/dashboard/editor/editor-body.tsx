@@ -173,6 +173,7 @@ export default function EditorBody({
           color: #3b82f6;
           text-decoration: underline;
           cursor: pointer;
+          target: "_blank"
         }
 
         .editor-container img {
