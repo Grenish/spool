@@ -67,8 +67,10 @@ export function AppSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <PaintBrushBroadIcon /> Themes
+              <SidebarMenuButton asChild>
+                <Link href={"/me/themes"}>
+                  <PlugIcon /> Themes
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
