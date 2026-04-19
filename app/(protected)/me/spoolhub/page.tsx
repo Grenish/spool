@@ -1,27 +1,21 @@
 import CollectionCard from "@/components/dashboard/components/collection";
-import DeleteButton from "@/components/dashboard/components/delete-button";
+import EditButton from "@/components/dashboard/components/edit-button";
 import HubLinks from "@/components/dashboard/components/hub-links";
 import InstagramCard from "@/components/dashboard/components/instagram-card";
+import PhotoPicker from "@/components/dashboard/components/photo-picker";
 import TextBlock from "@/components/dashboard/components/text-block";
 import TweetCard from "@/components/dashboard/components/tweet-card";
-import EditorBody from "@/components/dashboard/editor/editor-body";
 import MainEditor from "@/components/dashboard/editor/main-editor";
-import EditorToolbar from "@/components/dashboard/editor/toolbar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
 import {
   Field,
   FieldGroup,
   FieldSeparator,
   FieldSet,
 } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import {
   Item,
   ItemActions,
@@ -30,33 +24,15 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Textarea } from "@/components/ui/textarea";
 import {
   DevToLogoIcon,
   FacebookLogoIcon,
   GithubLogoIcon,
   GoogleLogoIcon,
-  ImageIcon,
-  LinkIcon,
-  ListBulletsIcon,
-  ListDashesIcon,
-  ListNumbersIcon,
   MicrosoftOutlookLogoIcon,
-  ParagraphIcon,
   PenIcon,
   ShareIcon,
-  TextBolderIcon,
-  TextHOneIcon,
-  TextHTwoIcon,
-  TextItalicIcon,
-  TextUnderlineIcon,
   XLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
@@ -86,9 +62,18 @@ export default function Spoolhub() {
                 sizes="(max-width: 768px) 100vw, 768px"
               />
               <div className="absolute bottom-2 right-2">
-                <Button size={"icon"} variant={"secondary"}>
+                {/*<Button size={"icon"} variant={"secondary"}>
                   <PenIcon />
-                </Button>
+                </Button>*/}
+                <EditButton
+                  size={"icon"}
+                  variant={"secondary"}
+                  title="Edit banner"
+                  desc="Edit your banner"
+                  iconOnly
+                >
+                  <PhotoPicker />
+                </EditButton>
               </div>
             </AspectRatio>
             <Item>
@@ -129,9 +114,40 @@ export default function Spoolhub() {
                 </div>
               </ItemContent>
               <ItemActions>
-                <Button size={"sm"} variant={"ghost"}>
-                  <PenIcon /> Edit
-                </Button>
+                <EditButton
+                  title="Edit Profile"
+                  desc="Edit your profile"
+                  size={"sm"}
+                  variant={"ghost"}
+                >
+                  <Item className="p-0">
+                    <ItemMedia className="relative">
+                      <Avatar className="size-20">
+                        <AvatarImage src={"https://github.com/shadcn.png"} />
+                      </Avatar>
+                      <div className="absolute bottom-0 right-0">
+                        <EditButton
+                          title="Edit Profil Picture"
+                          desc="edit the profile picture"
+                          iconOnly
+                          size={"icon-xs"}
+                        >
+                          <PhotoPicker />
+                        </EditButton>
+                      </div>
+                    </ItemMedia>
+                    <ItemContent>
+                      <Input placeholder="Name" defaultValue={"John Doe"} />
+                      <Textarea
+                        placeholder="Bio"
+                        className="no-scrollbar"
+                        defaultValue={
+                          "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
+                        }
+                      />
+                    </ItemContent>
+                  </Item>
+                </EditButton>
               </ItemActions>
             </Item>
             <FieldGroup>
