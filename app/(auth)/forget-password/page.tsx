@@ -30,7 +30,7 @@ export default function ForgetPassword() {
               <InputGroupAddon>
                 <KeyholeIcon />
               </InputGroupAddon>
-              <InputGroupInput placeholder="OTP" required />
+              <InputGroupInput placeholder="OTP" required maxLength={6} />
             </InputGroup>
           </Field>
         </FieldGroup>
