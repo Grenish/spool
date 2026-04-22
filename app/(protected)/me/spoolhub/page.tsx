@@ -1,4 +1,5 @@
 import CollectionCard from "@/components/dashboard/components/collection";
+import DeleteButton from "@/components/dashboard/components/delete-button";
 import EditButton from "@/components/dashboard/components/edit-button";
 import HubLinks from "@/components/dashboard/components/hub-links";
 import InstagramCard from "@/components/dashboard/components/instagram-card";
@@ -9,6 +10,7 @@ import MainEditor from "@/components/dashboard/editor/main-editor";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Field,
   FieldGroup,
@@ -26,6 +28,7 @@ import {
 } from "@/components/ui/item";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  ArrowSquareOutIcon,
   DevToLogoIcon,
   FacebookLogoIcon,
   GithubLogoIcon,
@@ -217,6 +220,39 @@ export default function Spoolhub() {
                 </CollectionCard>
               </Field>
             </FieldGroup>
+          </Field>
+        </FieldGroup>
+        <FieldGroup>
+          <Field>
+            <Item className="bg-card">
+              <ItemContent>
+                <ItemTitle>Spool. Branding</ItemTitle>
+              </ItemContent>
+              <ItemActions>
+                <DeleteButton
+                  iconOnly
+                  size={"icon-sm"}
+                  desc="Spool is built and maintained by an independent developer. Keeping the branding helps support the project, but removing it is completely optional."
+                />
+              </ItemActions>
+            </Item>
+            <Item>
+              <ItemMedia>
+                <Avatar>
+                  <AvatarImage src={"/spool.png"} />
+                </Avatar>
+              </ItemMedia>
+              <ItemContent>
+                <ItemTitle className="font-semibold">
+                  Created at Spool.
+                </ItemTitle>
+              </ItemContent>
+              <ItemActions>
+                <Button size={"icon-sm"}>
+                  <ArrowSquareOutIcon />
+                </Button>
+              </ItemActions>
+            </Item>
           </Field>
         </FieldGroup>
       </FieldSet>
