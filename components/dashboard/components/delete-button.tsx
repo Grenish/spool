@@ -15,11 +15,15 @@ import { TrashIcon } from "@phosphor-icons/react/dist/ssr";
 type DeleteButtonProps = {
   iconOnly?: boolean;
   size?: React.ComponentProps<typeof Button>["size"];
+  title?: string;
+  desc?: string;
 };
 
 export default function DeleteButton({
   iconOnly = false,
   size,
+  title = "Are you sure?",
+  desc = "This action permanently deletes the link and its associated data. If you may need it later, consider disabling the link instead.",
 }: DeleteButtonProps) {
   return (
     <AlertDialog>
@@ -35,11 +39,8 @@ export default function DeleteButton({
       </AlertDialogTrigger>
       <AlertDialogContent size="sm">
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action permanently deletes the link and its associated data.
-            If you may need it later, consider disabling the link instead.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{desc}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
