@@ -1,4 +1,3 @@
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,47 +13,62 @@ import { cn } from "@/lib/utils";
 import { InstagramLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 
+// Types
+
 type InstagramCardSize = "sm" | "md" | "lg" | "xl";
 type InstagramPhotoLayout = 1 | 2 | 3 | 4;
 
-type InstagramCardProps = {
+interface InstagramCardProps {
   avatarSrc?: string;
   className?: string;
   description?: string;
   photoLayout?: InstagramPhotoLayout;
   photos?: string[];
-  profileName?: string;
+  profileName: string;
   size?: InstagramCardSize;
-};
+}
 
-const DEFAULT_AVATAR = "https://github.com/shadcn.png";
+interface SizeConfig {
+  avatar: string;
+  button: "icon-xs" | "icon-sm" | "icon" | "icon-lg";
+  card: string;
+  cardSize: "default" | "sm";
+  contentPadding: string;
+  description: string;
+  gap: string;
+  itemSize: "default" | "sm";
+  mediaRadius: string;
+  title: string;
+}
 
-const DEFAULT_PHOTOS = [
-  "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop",
-];
+interface InstagramCardHeaderProps {
+  avatarSrc?: string;
+  avatarClass: string;
+  buttonSize: "icon-xs" | "icon-sm" | "icon" | "icon-lg";
+  description?: string;
+  descriptionClass: string;
+  initials: string;
+  itemSize: "default" | "sm";
+  profileName: string;
+  titleClass: string;
+}
 
-const sizeStyles: Record<
-  InstagramCardSize,
-  {
-    avatar: string;
-    button: "icon-xs" | "icon-sm" | "icon" | "icon-lg";
-    card: string;
-    cardSize: "default" | "sm";
-    contentPadding: string;
-    description: string;
-    gap: string;
-    itemSize: "default" | "sm";
-    mediaRadius: string;
-    title: string;
-  }
-> = {
+interface InstagramCardBodyProps {
+  contentPadding: string;
+  gap: string;
+  mediaRadius: string;
+  photoLayout: InstagramPhotoLayout;
+  photos: string[];
+  profileName: string;
+}
+
+// Config
+
+const sizeConfig: Record<InstagramCardSize, SizeConfig> = {
   sm: {
     avatar: "size-9",
     button: "icon-xs",
-    card: "sm:max-w-xs",
+    card: "max-w-xs",
     cardSize: "sm",
     contentPadding: "px-4",
     description: "text-xs line-clamp-2",
@@ -66,7 +80,7 @@ const sizeStyles: Record<
   md: {
     avatar: "size-10",
     button: "icon-sm",
-    card: "sm:max-w-sm",
+    card: "max-w-sm",
     cardSize: "default",
     contentPadding: "px-5",
     description: "text-sm line-clamp-2",
@@ -78,7 +92,7 @@ const sizeStyles: Record<
   lg: {
     avatar: "size-12",
     button: "icon",
-    card: "sm:max-w-md",
+    card: "max-w-md",
     cardSize: "default",
     contentPadding: "px-6",
     description: "text-sm line-clamp-3",
@@ -90,7 +104,7 @@ const sizeStyles: Record<
   xl: {
     avatar: "size-14",
     button: "icon-lg",
-    card: "sm:max-w-xl",
+    card: "max-w-xl",
     cardSize: "default",
     contentPadding: "px-6",
     description: "text-sm line-clamp-3",
@@ -101,8 +115,17 @@ const sizeStyles: Record<
   },
 };
 
-function getInitials(profileName: string) {
-  return profileName
+const photoLayoutClass: Record<InstagramPhotoLayout, string> = {
+  1: "grid-cols-1 grid-rows-1",
+  2: "grid-cols-2 grid-rows-1",
+  3: "grid-cols-[1.35fr_1fr] grid-rows-2",
+  4: "grid-cols-2 grid-rows-2",
+};
+
+// Utilities
+
+function getInitials(name: string): string {
+  return name
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
@@ -111,98 +134,139 @@ function getInitials(profileName: string) {
     .toUpperCase();
 }
 
-function getLayoutPhotoClass(layout: InstagramPhotoLayout, index: number) {
-  if (layout === 3 && index === 0) {
-    return "row-span-2";
-  }
-
-  return "";
+function getPhotoSpanClass(
+  layout: InstagramPhotoLayout,
+  index: number,
+): string {
+  return layout === 3 && index === 0 ? "row-span-2" : "";
 }
 
-function getPhotos(photos: string[] | undefined, count: number) {
-  return Array.from({ length: count }, (_, index) => {
-    return photos?.[index] ?? DEFAULT_PHOTOS[index % DEFAULT_PHOTOS.length];
-  });
+// Components
+
+function InstagramCardHeader({
+  avatarSrc,
+  avatarClass,
+  buttonSize,
+  description,
+  descriptionClass,
+  initials,
+  itemSize,
+  profileName,
+  titleClass,
+}: InstagramCardHeaderProps) {
+  return (
+    <Item size={itemSize} className="border-0 rounded-none bg-transparent py-0">
+      <ItemMedia>
+        <Avatar className={avatarClass}>
+          <AvatarImage src={avatarSrc} alt={profileName} />
+          <AvatarFallback>{initials}</AvatarFallback>
+        </Avatar>
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle className={titleClass}>{profileName}</ItemTitle>
+        {description && (
+          <ItemDescription
+            className={cn(descriptionClass, "text-muted-foreground")}
+          >
+            {description}
+          </ItemDescription>
+        )}
+      </ItemContent>
+      <ItemActions>
+        <Button
+          variant="outline"
+          size={buttonSize}
+          aria-label="Open on Instagram"
+        >
+          <InstagramLogoIcon weight="duotone" />
+        </Button>
+      </ItemActions>
+    </Item>
+  );
+}
+
+function InstagramCardBody({
+  contentPadding,
+  gap,
+  mediaRadius,
+  photoLayout,
+  photos,
+  profileName,
+}: InstagramCardBodyProps) {
+  if (photos.length === 0) return null;
+
+  return (
+    <CardContent className={contentPadding}>
+      <div
+        className={cn(
+          "grid w-full overflow-hidden aspect-square",
+          gap,
+          mediaRadius,
+          photoLayoutClass[photoLayout],
+        )}
+      >
+        {photos.map((photo, index) => (
+          <div
+            key={`${photo}-${index}`}
+            className={cn(
+              "relative min-h-0 overflow-hidden",
+              getPhotoSpanClass(photoLayout, index),
+            )}
+          >
+            <Image
+              src={photo}
+              alt={`${profileName} photo ${index + 1}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          </div>
+        ))}
+      </div>
+    </CardContent>
+  );
 }
 
 export default function InstagramCard({
-  avatarSrc = DEFAULT_AVATAR,
+  avatarSrc,
   className,
-  description = "A responsive Instagram-style card with configurable photo layouts.",
+  description,
   photoLayout = 1,
-  photos,
-  profileName = "John Doe",
+  photos = [],
+  profileName,
   size = "md",
 }: InstagramCardProps) {
-  const styles = sizeStyles[size];
+  const config = sizeConfig[size];
   const initials = getInitials(profileName);
-  const visiblePhotos = getPhotos(photos, photoLayout);
 
   return (
     <Card
-      size={styles.cardSize}
+      size={config.cardSize}
       className={cn(
         "w-full border border-border/60 bg-card/95 shadow-sm",
-        styles.card,
+        config.card,
         className,
       )}
     >
-      <Item size={styles.itemSize} className="py-0">
-        <ItemMedia>
-          <Avatar className={styles.avatar}>
-            <AvatarImage src={avatarSrc} alt={profileName} />
-            <AvatarFallback>{initials}</AvatarFallback>
-          </Avatar>
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle className={styles.title}>{profileName}</ItemTitle>
-          <ItemDescription className={styles.description}>
-            {description}
-          </ItemDescription>
-        </ItemContent>
-        <ItemActions>
-          <Button
-            variant={"outline"}
-            size={styles.button}
-            aria-label="Open Instagram card"
-          >
-            <InstagramLogoIcon weight="duotone" />
-          </Button>
-        </ItemActions>
-      </Item>
-      <CardContent className={styles.contentPadding}>
-        <AspectRatio ratio={1 / 1}>
-          <div
-            className={cn(
-              "grid h-full w-full overflow-hidden",
-              styles.gap,
-              styles.mediaRadius,
-              photoLayout === 1 && "grid-cols-1 grid-rows-1",
-              photoLayout === 2 && "grid-cols-2 grid-rows-1",
-              photoLayout === 3 && "grid-cols-[1.35fr_1fr] grid-rows-2",
-              photoLayout === 4 && "grid-cols-2 grid-rows-2",
-            )}
-          >
-            {visiblePhotos.map((photo, index) => (
-              <div
-                key={`${photo}-${index}`}
-                className={cn(
-                  "relative min-h-0 overflow-hidden",
-                  getLayoutPhotoClass(photoLayout, index),
-                )}
-              >
-                <Image
-                  src={photo}
-                  alt={`${profileName} photo ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
-            ))}
-          </div>
-        </AspectRatio>
-      </CardContent>
+      <InstagramCardHeader
+        avatarSrc={avatarSrc}
+        avatarClass={config.avatar}
+        buttonSize={config.button}
+        description={description}
+        descriptionClass={config.description}
+        initials={initials}
+        itemSize={config.itemSize}
+        profileName={profileName}
+        titleClass={config.title}
+      />
+      <InstagramCardBody
+        contentPadding={config.contentPadding}
+        gap={config.gap}
+        mediaRadius={config.mediaRadius}
+        photoLayout={photoLayout}
+        photos={photos}
+        profileName={profileName}
+      />
     </Card>
   );
 }
