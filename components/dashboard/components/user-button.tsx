@@ -6,7 +6,13 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -14,6 +20,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {
+  CircleHalfIcon,
+  GearIcon,
+  MoonIcon,
+  PaintBrushIcon,
+  SignOutIcon,
+  SunIcon,
+  UserIcon,
+} from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
+import * as React from "react";
 
 export default function UserButton({
   profileImage,
@@ -24,6 +41,8 @@ export default function UserButton({
   fullname: string;
   email: string;
 }) {
+  const [selected, setSelected] = React.useState("system");
+
   const short = fullname
     .split(" ")
     .map((word) => word[0])
@@ -75,14 +94,47 @@ export default function UserButton({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <a href="/profile">Profile</a>
+              <Link href="/profile">
+                <UserIcon weight="duotone" />
+                Profile
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <a href="/settings">Settings</a>
+              <Link href="/settings">
+                <GearIcon weight="duotone" /> Settings
+              </Link>
             </DropdownMenuItem>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <PaintBrushIcon weight="duotone" /> Theme
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <DropdownMenuRadioGroup
+                    value={selected}
+                    onValueChange={setSelected}
+                  >
+                    <DropdownMenuRadioItem value="light">
+                      <SunIcon weight="duotone" />
+                      Light
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="dark">
+                      <MoonIcon weight="duotone" />
+                      Dark
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="system">
+                      <CircleHalfIcon weight="duotone" />
+                      System
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <a href="/logout">Log out</a>
+              <Link href="/logout">
+                <SignOutIcon weight="duotone" /> Log out
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
