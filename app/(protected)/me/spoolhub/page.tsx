@@ -31,7 +31,6 @@ import {
   GithubLogoIcon,
   GoogleLogoIcon,
   MicrosoftOutlookLogoIcon,
-  PenIcon,
   ShareIcon,
   XLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
@@ -208,6 +207,11 @@ export default function Spoolhub() {
                       tweet="Hello world"
                       profileName={"John Doe"}
                       media={instagramPhotos}
+                      likes={30000}
+                      retweets={4000}
+                      replies={5000}
+                      timestamp="Nov 15, 2024 • 2:30 PM"
+                      avatarSrc="https://github.com/shadcn.png"
                     />
                   </div>
                 </CollectionCard>
