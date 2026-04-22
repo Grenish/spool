@@ -14,8 +14,8 @@ export default function ThemeToggleButton() {
   return (
     <Button
       onClick={toggleTheme}
-      variant="ghost"
-      size="icon"
+      variant="outline"
+      size="icon-sm"
       aria-label="Toggle theme"
     >
       {theme === "light" ? <MoonIcon /> : <SunIcon />}
