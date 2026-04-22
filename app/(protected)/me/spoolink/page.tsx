@@ -62,10 +62,7 @@ export default function Shorten() {
                 />
               </InputGroup>
               <Field orientation={"horizontal"}>
-                <Button>
-                  <AxeIcon />
-                  SpoolIt
-                </Button>
+                <Button>Spool It</Button>
               </Field>
             </Field>
             <Field>
